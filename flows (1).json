@@ -1,0 +1,467 @@
+[
+    {
+        "id": "f0c70ca81ae90dd0",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "120c26bc7dcf8431",
+        "type": "tab",
+        "label": "Flow 2",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "f0a47d70b1a83101",
+        "type": "http in",
+        "z": "f0c70ca81ae90dd0",
+        "name": "",
+        "url": "http://localhost:1880/",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 150,
+        "y": 280,
+        "wires": [
+            [
+                "c7436b3ce282f52c"
+            ]
+        ]
+    },
+    {
+        "id": "f7add65f37b672b7",
+        "type": "http request",
+        "z": "f0c70ca81ae90dd0",
+        "name": "",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "body",
+        "url": "https://sandbox.api.visa.com/aliasdirectory/v1/aliases",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 570,
+        "y": 280,
+        "wires": [
+            [
+                "235c428e989e588d"
+            ]
+        ]
+    },
+    {
+        "id": "c7436b3ce282f52c",
+        "type": "change",
+        "z": "f0c70ca81ae90dd0",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{   \"aliasValue\": \"1231231234\",   \"identification\": {     \"verificationDetails\": {       \"verifiedPhone\": false,       \"authMethodReference\": \"EXTERNAL, SMS OTP, Email OTP\",       \"authDateTime\": \"2021-01-01T22:52:46.000Z\",       \"verifiedEmail\": true,       \"creationDateTime\": \"2021-01-01T22:52:46.000Z\"     },     \"type\": \"PASSPORT\",     \"value\": \"A123456\"   },   \"profile\": {     \"lastName\": \"Miller\",     \"firstName\": \"Alex\",     \"contactInfo\": [       {         \"type\": \"PHONE\",         \"value\": 1231234321       }     ],     \"middleName\": \"Robert\",     \"dateOfBirth\": \"1980-02-01\",     \"preferredName\": \"Miller's Shop\"   },   \"aliasType\": \"PHONE\",   \"externalId\": \"21267931-7975-4b61-be7a-86915883b2b4\",   \"paymentCredentials\": [     {       \"nameOnCard\": \"John Doe\",       \"externalId\": \"63421837-d597-4f0f-89e4-930c1a7b9e85\",       \"preferredFor\": [         {           \"date\": \"2021-01-01T22:52:46.000Z\",           \"type\": \"RECEIVE\"         }       ],       \"billingAddress\": {         \"country\": \"USA\",         \"streetName\": 12,         \"city\": \"San Francisco\",         \"postalCode\": 94105,         \"addressLine1\": \"1000 Market Street\",         \"buildingNumber\": 56,         \"addressLine2\": \"Suite 101\",         \"state\": \"CA\",         \"minorSubdivisionCode\": \"CA\"       },       \"type\": \"CARD\",       \"accountNumber\": \"4111111145551142\",       \"expirationDate\": \"string\"     }   ],   \"consent\": {     \"presenter\": \"Wells\",     \"validFromDateTime\": \"2021-12-01T10:00:00.000Z\",     \"intermediaries\": [       \"Google\"     ],     \"version\": \"1.0\",     \"expiryDateTime\": \"2022-06-20T10:00:00.000Z\"   } }",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 380,
+        "y": 280,
+        "wires": [
+            [
+                "f7add65f37b672b7"
+            ]
+        ]
+    },
+    {
+        "id": "235c428e989e588d",
+        "type": "switch",
+        "z": "f0c70ca81ae90dd0",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 750,
+        "y": 280,
+        "wires": [
+            [
+                "33a6b5f3f4dfa54c",
+                "0eaf02d9032e2344"
+            ]
+        ]
+    },
+    {
+        "id": "33a6b5f3f4dfa54c",
+        "type": "http response",
+        "z": "f0c70ca81ae90dd0",
+        "name": "OK",
+        "statusCode": "200",
+        "headers": {},
+        "x": 890,
+        "y": 200,
+        "wires": [],
+        "info": "Alias wasn't created"
+    },
+    {
+        "id": "0eaf02d9032e2344",
+        "type": "http response",
+        "z": "f0c70ca81ae90dd0",
+        "name": "Error",
+        "statusCode": "404",
+        "headers": {},
+        "x": 890,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "2f8a7ae80ae95cda",
+        "type": "http in",
+        "z": "120c26bc7dcf8431",
+        "name": "",
+        "url": "http://localhost:1880/",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 190,
+        "y": 200,
+        "wires": [
+            [
+                "fa51e9e5a1348695"
+            ]
+        ]
+    },
+    {
+        "id": "fa51e9e5a1348695",
+        "type": "change",
+        "z": "120c26bc7dcf8431",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{   \"aliasValue\": \"1231231234\",   \"aliasType\": \"PHONE\",   \"filters\": [     {       \"field\": \"DIRECTORY_NAME\",       \"value\": [         \"STANDARD_YELLOWPEPPER\"       ]     }   ] }",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 420,
+        "y": 200,
+        "wires": [
+            [
+                "011585e8281ac118"
+            ]
+        ]
+    },
+    {
+        "id": "011585e8281ac118",
+        "type": "http request",
+        "z": "120c26bc7dcf8431",
+        "name": "",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "https://sandbox.api.visa.com/aliasdirectory/v1/aliases/resolve",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 610,
+        "y": 200,
+        "wires": [
+            [
+                "fb2908ea5243e169"
+            ]
+        ],
+        "info": "{\r\n  \"aliasValue\": \"1231231234\",\r\n  \"aliasType\": \"PHONE\",\r\n  \"filters\": [\r\n    {\r\n      \"field\": \"DIRECTORY_NAME\",\r\n      \"value\": [\r\n        \"STANDARD_YELLOWPEPPER\"\r\n      ]\r\n    }\r\n  ]\r\n}"
+    },
+    {
+        "id": "fb2908ea5243e169",
+        "type": "switch",
+        "z": "120c26bc7dcf8431",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 790,
+        "y": 200,
+        "wires": [
+            [
+                "4a92f2e4e60dc976",
+                "7b86926485c1be79"
+            ]
+        ]
+    },
+    {
+        "id": "4a92f2e4e60dc976",
+        "type": "http response",
+        "z": "120c26bc7dcf8431",
+        "name": "Error",
+        "statusCode": "404",
+        "headers": {},
+        "x": 970,
+        "y": 60,
+        "wires": [],
+        "info": "Phone alias does not exist"
+    },
+    {
+        "id": "7b86926485c1be79",
+        "type": "http request",
+        "z": "120c26bc7dcf8431",
+        "name": "",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "https://sandbox.api.visa.com/aliasdirectory/v1/paymentCredentials/{paymentCredentialId}",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 970,
+        "y": 260,
+        "wires": [
+            [
+                "2a364de80a15dee0"
+            ]
+        ]
+    },
+    {
+        "id": "2a364de80a15dee0",
+        "type": "switch",
+        "z": "120c26bc7dcf8431",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 1130,
+        "y": 260,
+        "wires": [
+            [
+                "66422056f5a8cddd",
+                "8c6c7278afa21ea1"
+            ]
+        ]
+    },
+    {
+        "id": "66422056f5a8cddd",
+        "type": "http response",
+        "z": "120c26bc7dcf8431",
+        "name": "Error",
+        "statusCode": "404",
+        "headers": {},
+        "x": 1270,
+        "y": 200,
+        "wires": [],
+        "info": "Card validation was unsuccessful"
+    },
+    {
+        "id": "8c6c7278afa21ea1",
+        "type": "http request",
+        "z": "120c26bc7dcf8431",
+        "name": "",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 1290,
+        "y": 300,
+        "wires": [
+            [
+                "20d8415f4d68dd45"
+            ]
+        ],
+        "info": "cannot find api link /pullfundtransaction"
+    },
+    {
+        "id": "20d8415f4d68dd45",
+        "type": "switch",
+        "z": "120c26bc7dcf8431",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 1470,
+        "y": 340,
+        "wires": [
+            [
+                "3a318c68fde7f127",
+                "cb12b9b953e52cac"
+            ]
+        ]
+    },
+    {
+        "id": "3a318c68fde7f127",
+        "type": "http response",
+        "z": "120c26bc7dcf8431",
+        "name": "Error",
+        "statusCode": "404",
+        "headers": {},
+        "x": 1630,
+        "y": 280,
+        "wires": [],
+        "info": "Pull funds transaction was unsuccessful"
+    },
+    {
+        "id": "cb12b9b953e52cac",
+        "type": "http request",
+        "z": "120c26bc7dcf8431",
+        "name": "",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 1650,
+        "y": 380,
+        "wires": [
+            [
+                "2f914351fd87aced"
+            ]
+        ],
+        "info": "cannot find api link /pushfundtransaction"
+    },
+    {
+        "id": "2f914351fd87aced",
+        "type": "switch",
+        "z": "120c26bc7dcf8431",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 1810,
+        "y": 380,
+        "wires": [
+            [
+                "8326ddbe988a481a",
+                "ea241abe2a28303b"
+            ]
+        ]
+    },
+    {
+        "id": "8326ddbe988a481a",
+        "type": "http response",
+        "z": "120c26bc7dcf8431",
+        "name": "Success",
+        "statusCode": "200",
+        "headers": {},
+        "x": 1980,
+        "y": 280,
+        "wires": [],
+        "info": "Funds transaction was successful"
+    },
+    {
+        "id": "ea241abe2a28303b",
+        "type": "http request",
+        "z": "120c26bc7dcf8431",
+        "name": "",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 1990,
+        "y": 440,
+        "wires": [
+            [
+                "4efd18c29805a568"
+            ]
+        ],
+        "info": "Can't find API link /reversefundtransaction"
+    },
+    {
+        "id": "4efd18c29805a568",
+        "type": "http response",
+        "z": "120c26bc7dcf8431",
+        "name": "Success",
+        "statusCode": "200",
+        "headers": {},
+        "x": 2200,
+        "y": 440,
+        "wires": [],
+        "info": "Reverse fund transaction was successful"
+    }
+]
